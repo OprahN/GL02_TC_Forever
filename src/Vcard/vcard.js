@@ -18,11 +18,12 @@ export function createVCardFromUserInput(answer) {
         "TITLE:" + answer.poste + "\n" +
         "ADR;TYPE=WORK:;;" + answer.numeroRue + " " + answer.nomRue + ";" + answer.bp + ";" + answer.ville + ";;\n" +
         "TEL:" + answer.numeroTel + "\n" +
-        "EMAIL:" + answer.prenom.toLowerCase() + '@' + answer.nomEtablissement.toLowerCase() + '.fr' + "\n" +
+        "EMAIL:" + answer.prenom.toLowerCase()+ '.'+answer.nom.toLowerCase()+ '@' + answer.nomEtablissement.toLowerCase() +'.fr' + "\n" +
         "URL:" + answer.siteWeb + "\n" +
         "END:VCARD";
 
     return vCardString;
+   
 }
 
 export function saveVCardFromUserInput(answer) {
@@ -30,8 +31,8 @@ export function saveVCardFromUserInput(answer) {
     const vCardString = createVCardFromUserInput(answer);
 
     // Vérifier si la création du fichier VCard a échoué
-    if (!vCardString) {
-        return; // Arrêter la fonction si les informations sont incomplètes ou incorrectes
+    if (vCardString === null) {
+        console.log("Échec de la création du fichier VCard..."); // Arrêter la fonction si les informations sont incomplètes ou incorrectes
     }
 
     // Vérifier si le dossier existe, sinon le créer
