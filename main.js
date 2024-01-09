@@ -1,5 +1,6 @@
-//add commentaire
+// Importation du module inquirer pour les interactions en ligne de commande
 import inquirer from 'inquirer';
+// Importation des différents menus depuis le fichier menus.js
 import {
   get_question_menu,
   create_test_menu,
@@ -9,7 +10,7 @@ import {
   exam_profile_menu,
   compareExams_menu
 } from './src/menus.js';
-
+// Configuration du menu principal avec différentes options
 const mainMenuQuestions = [
   {
     type: 'list',
@@ -27,12 +28,14 @@ const mainMenuQuestions = [
     ],
   },
 ];
-
+// Fonction asynchrone pour exécuter le menu principal
 async function runMainMenu() {
-  let keepRunning = true;
+  let keepRunning = true;// Boucle pour maintenir le menu actif
   while (keepRunning) {
+    // Afficher le menu et attendre la réponse de l'utilisateur
     process.stdout.write('\x1B[2J\x1B[0f');
     const { action } = await inquirer.prompt(mainMenuQuestions);
+    // Gère la réponse de l'utilisateur
     switch (action) {
       case 'Search Question':
         await get_question_menu();
@@ -64,5 +67,5 @@ async function runMainMenu() {
     }
   }
 }
-
+// Exécution de la fonction runMainMenu pour démarrer l'application
 runMainMenu();
