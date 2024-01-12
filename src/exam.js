@@ -64,41 +64,6 @@ export class Exam {
             `Entrée: ${inputQuestion}`,
             `Choix multiples: ${choiceQuestion}`,
             );
-
-        // Préparer les données pour le graphique
-        const data = [
-            { category: 'Vrai ou Faux', count: boolQuestion },
-            { category: 'Numérique', count: numberQuestion },
-            { category: 'Appariement', count: matchQuestion },
-            { category: 'Entrée', count: inputQuestion },
-            { category: 'Choix multiples', count: choiceQuestion },
-        ];
-
-        // Définition de la spécification Vega-Lite
-        const spec = {
-            $schema: 'https://vega.github.io/schema/vega-lite/v5.json',
-            description: 'Profil de l\'examen',
-            data: { values: data },
-            mark: 'bar',
-            encoding: {
-                x: { field: 'category', type: 'nominal', axis: { title: 'Catégorie' } },
-                y: { field: 'count', type: 'quantitative', axis: { title: 'Nombre de Questions' } }
-            }
-        };
-
-        // Compiler la spécification Vega-Lite en spécification Vega
-        const compiledSpec = compile(spec).spec;
-
-        // Créer une vue Vega avec la spécification compilée
-        const view = new View(vega.parse(compiledSpec), {
-            renderer: 'none'  // Pas besoin de rendu dans un navigateur
-        }).initialize();
-
-        // Générer le PNG
-        const png = await view.toCanvas();
-
-        fs.writeFileSync('./src/Storage/ExamCharts/chart.png', png.toBuffer());
-
     }
 
 
