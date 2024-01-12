@@ -102,6 +102,8 @@ export async function create_test_menu() {
   const questions = [];
   let selectedQuestion;
   let testName = "";
+  //initialisation de la variable qui compte le nombre de questions
+  let numberQuestion = 0;
 
   while (true) {
     const choices = [];
@@ -129,8 +131,21 @@ export async function create_test_menu() {
     if (userInput.mainOption === "Choose a Question") {
       const result = await get_question_menu();
       if (result) {
-        questions.push(result); // Ajoutez la question sélectionnée à l'array
-        console.log("Question added to the test.");
+        // Utilisation de la méthode some pour vérifier si au moins un élément du tableau correspond à l'objet
+        if (
+          questions.some(
+            (elem) => JSON.stringify(elem) === JSON.stringify(result)
+          )
+        ) {
+          console.log("this question is already exists");
+        } else {
+          questions.push(result); // Ajoutez la question sélectionnée à l'array
+          console.log("Question added to the test.");
+
+          //Compteur pour le nombre de questions du test(issue_5)
+          numberQuestion++;
+          console.log("total de question:" + numberQuestion);
+        }
       }
     } else if (userInput.mainOption === "Fill the Test") {
       const remainingQuestions = 20 - questions.length;
